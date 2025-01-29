@@ -1,0 +1,67 @@
+﻿using System.Globalization;
+
+namespace TaskManager.Utils
+{
+    public class UserInputReader
+    {
+        public string GetTitle(Guid id)
+        {
+            const string displayMessage = "Enter a title:";
+            string title = GetInput(displayMessage);
+
+            if(title == null || title.Trim() == "")
+            {
+                title = $"Assignment{id}";
+            }
+
+            return title;
+        }
+
+        public string GetDescription()
+        {
+            const string displayMessage = "Enter a description:";
+            string description = GetInput(displayMessage);
+
+            return description;
+        }
+
+        public DateTime GetDueDate()
+        {
+            DateTime date = DateTime.UtcNow.AddDays(1);
+            bool isValid = false;
+
+            while (!isValid)
+            {
+                Console.Write("Please, enter a due date (dd/MM/yyyy): ");
+                string? userInput = Console.ReadLine();
+
+                isValid = DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+                if (!isValid)
+                    Console.WriteLine("Invalid date format. Try again.");
+            }
+
+            return date;
+        }
+
+        private string GetInput(string displayMessage)
+        {
+            string? userInput;
+            bool validEntry = false;
+
+            do
+            {
+                Console.WriteLine(displayMessage);
+
+                userInput = Console.ReadLine();
+                if (userInput != null)
+                {
+                    userInput = userInput.Trim();
+                    validEntry = true;
+                }
+            } while (validEntry == false);
+
+            return userInput;
+        }
+    }
+}
