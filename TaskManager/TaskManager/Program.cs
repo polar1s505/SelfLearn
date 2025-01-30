@@ -1,4 +1,4 @@
-﻿using System.Security.Principal;
+﻿
 using TaskManager.Commands;
 using TaskManager.Interfaces;
 using TaskManager.Models;
@@ -34,10 +34,12 @@ do
             display.ShowModifyAssignmentResult(modifyAssignmentCommand.Execute(user));
             break;
         case "3":
-
+            ICommand<bool> closeAssignmentCommand = new CloseAssignmentCommand();
+            display.ShowCloseAssignmentResult(closeAssignmentCommand.Execute(user));
             break;
         case "4":
-
+            ICommand<bool> deleteAssignmentCommand = new DeleteAssignmentCommand();
+            display.ShowDeleteAssignmentResult(deleteAssignmentCommand.Execute(user));
             break;
         case "5":
 

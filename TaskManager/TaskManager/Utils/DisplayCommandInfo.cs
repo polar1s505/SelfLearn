@@ -29,5 +29,33 @@
                 Console.ReadLine();
             }
         }
+
+        public void ShowDeleteAssignmentResult(bool success)
+        {
+            if (success)
+            {
+                Console.WriteLine("Your assignment was successfuly deleted!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("No tasks available for deletion.");
+                Console.ReadLine();
+            }
+        }
+
+        public void ShowCloseAssignmentResult(bool success)
+        {
+            if (success)
+            {
+                Console.WriteLine("Your assignment was successfuly closed!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("No active tasks available.");
+                Console.ReadLine();
+            }
+        }
     }
 }

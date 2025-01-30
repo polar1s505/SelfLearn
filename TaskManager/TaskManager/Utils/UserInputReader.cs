@@ -60,10 +60,8 @@ namespace TaskManager.Utils
             return date;
         }
 
-        public Guid GetAssignmentId(List<Assignment> assignments)
+        public Guid GetAssignmentId(List<Assignment> assignments, string displayMessage)
         {
-            const string displayMessage = "Select a task to modify:";
-
             int choice = GetAssignmentChoice(assignments, displayMessage);
 
             return assignments[choice - 1].Id;
@@ -92,20 +90,20 @@ namespace TaskManager.Utils
         private int GetAssignmentChoice(List<Assignment> assignments, string displayMessage)
         {
             bool validEntry = false;
-            int choice = 0;
+            int choice;
 
             Console.WriteLine(displayMessage);
 
             for (int i = 0; i < assignments.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {assignments[i].Title}\n");
+                Console.WriteLine($"{i + 1}. {assignments[i].Title}");
             }
 
             do
             {
                 Console.WriteLine(displayMessage);
 
-                if (int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > assignments.Count)
+                if (int.TryParse(Console.ReadLine(), out choice) && (choice >= 1 && choice <= assignments.Count))
                 {
                     validEntry = true;
                 }
