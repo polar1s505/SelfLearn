@@ -4,6 +4,5 @@
     {
         Active = 1,
         Completed,
-        Deleted
     }
 }

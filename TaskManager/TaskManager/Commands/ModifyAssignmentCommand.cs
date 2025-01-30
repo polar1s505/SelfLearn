@@ -15,7 +15,8 @@ namespace TaskManager.Commands
                 return false;
             }
 
-            Guid assignmentToModify = reader.GetAssignmentId(activeAssignments);
+            const string displayMessageId = "Select a task to modify:";
+            Guid assignmentToModify = reader.GetAssignmentId(activeAssignments, displayMessageId);
             Assignment? assignment = user.Assignments.FirstOrDefault(a => a.Id == assignmentToModify);
             
 
@@ -27,7 +28,7 @@ namespace TaskManager.Commands
                 assignment!.Title = newTitle;
             }
 
-            string displayMessageDescr = "Enter a new description (leave empty to keep the same):";
+            const string displayMessageDescr = "Enter a new description (leave empty to keep the same):";
             string newDescription = reader.GetDescription(displayMessageDescr);
             if (!string.IsNullOrWhiteSpace(newDescription))
             {
