@@ -27,10 +27,11 @@ do
     {
         case "1":
             ICommand<bool> addAssignmentCommand = new AddAssignmentCommand();
-            display.ShowOperationResult(addAssignmentCommand.Execute(user));
+            display.ShowAddAssignmentResult(addAssignmentCommand.Execute(user));
             break;
         case "2":
-
+            ICommand<bool> modifyAssignmentCommand = new ModifyAssignmentCommand();
+            display.ShowModifyAssignmentResult(modifyAssignmentCommand.Execute(user));
             break;
         case "3":
 

@@ -6,7 +6,11 @@ namespace TaskManager.Commands
 {
     public class AddAssignmentCommand : CommandBase
     {
-        public AddAssignmentCommand() : base(AssignmentStatus.Active) { }
+        private readonly AssignmentStatus _assignmentStatus;
+        public AddAssignmentCommand()
+        {
+            _assignmentStatus = AssignmentStatus.Active;
+        }
 
         public override bool Execute(User user)
         {

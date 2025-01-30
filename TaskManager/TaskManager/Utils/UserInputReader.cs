@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using TaskManager.Models;
 
 namespace TaskManager.Utils
 {
@@ -17,9 +18,24 @@ namespace TaskManager.Utils
             return title;
         }
 
+        public string GetTitle()
+        {
+            const string displayMessage = "Enter new title (leave empty to keep the same):";
+            string title = GetInput(displayMessage);
+
+            return title;
+        }
+
         public string GetDescription()
         {
             const string displayMessage = "Enter a description:";
+            string description = GetInput(displayMessage);
+
+            return description;
+        }
+
+        public string GetDescription(string displayMessage)
+        {
             string description = GetInput(displayMessage);
 
             return description;
@@ -44,6 +60,15 @@ namespace TaskManager.Utils
             return date;
         }
 
+        public Guid GetAssignmentId(List<Assignment> assignments)
+        {
+            const string displayMessage = "Select a task to modify:";
+
+            int choice = GetAssignmentChoice(assignments, displayMessage);
+
+            return assignments[choice - 1].Id;
+        }
+
         private string GetInput(string displayMessage)
         {
             string? userInput;
@@ -59,9 +84,39 @@ namespace TaskManager.Utils
                     userInput = userInput.Trim();
                     validEntry = true;
                 }
-            } while (validEntry == false);
+            } while (!validEntry);
 
             return userInput;
+        }
+
+        private int GetAssignmentChoice(List<Assignment> assignments, string displayMessage)
+        {
+            bool validEntry = false;
+            int choice = 0;
+
+            Console.WriteLine(displayMessage);
+
+            for (int i = 0; i < assignments.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {assignments[i].Title}\n");
+            }
+
+            do
+            {
+                Console.WriteLine(displayMessage);
+
+                if (int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > assignments.Count)
+                {
+                    validEntry = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid selection.");
+                }  
+            }
+            while (!validEntry);
+
+            return choice;
         }
     }
 }
