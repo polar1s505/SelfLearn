@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Utils
+﻿using TaskManager.Models;
+
+namespace TaskManager.Utils
 {
     public class DisplayCommandInfo
     {
@@ -56,6 +58,21 @@
                 Console.WriteLine("No active tasks available.");
                 Console.ReadLine();
             }
+        }
+
+        public void ShowAssignments(List<Assignment> assignments)
+        {
+            if (!assignments.Any())
+            {
+                Console.WriteLine("No tasks available.");
+            }
+
+            foreach (var assignment in assignments)
+            {
+                Console.WriteLine(assignment);
+            }
+
+            Console.ReadLine();
         }
     }
 }

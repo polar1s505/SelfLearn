@@ -67,6 +67,44 @@ namespace TaskManager.Utils
             return assignments[choice - 1].Id;
         }
 
+        public DateTime GetStartDate()
+        {
+            DateTime date = DateTime.UtcNow.AddDays(1);
+            bool isValid = false;
+
+            while (!isValid)
+            {
+                Console.Write("Please, enter a start date of a period (dd/MM/yyyy): ");
+                string? userInput = Console.ReadLine();
+
+                isValid = DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+                if (!isValid)
+                    Console.WriteLine("Invalid date format. Try again.");
+            }
+
+            return date;
+        }
+
+        public DateTime GetEndDate()
+        {
+            DateTime date = DateTime.UtcNow.AddDays(1);
+            bool isValid = false;
+
+            while (!isValid)
+            {
+                Console.Write("Please, enter a end date of a period (dd/MM/yyyy): ");
+                string? userInput = Console.ReadLine();
+
+                isValid = DateTime.TryParseExact(userInput, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+                if (!isValid)
+                    Console.WriteLine("Invalid date format. Try again.");
+            }
+
+            return date;
+        }
+
         private string GetInput(string displayMessage)
         {
             string? userInput;

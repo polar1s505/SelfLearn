@@ -1,17 +1,17 @@
-﻿using System.Reflection.PortableExecutable;
-using TaskManager.Enums;
+﻿using TaskManager.Enums;
+using TaskManager.Interfaces;
 using TaskManager.Models;
 using TaskManager.Utils;
 
 namespace TaskManager.Commands
 {
-    public class CloseAssignmentCommand : CommandBase
+    public class CloseAssignmentCommand : ICommand<bool>
     {
-        public override bool Execute(User user)
+        public bool Execute(User user)
         {
             UserInputReader reader = new UserInputReader();
 
-            var activeAssignments = user.Assignments.Where(a => a.Status == AssignmentStatus.Active).ToList();
+            var activeAssignments = user.Assignments.Where(a => a.Status == AssignmentStatus.Active || a.Status == AssignmentStatus.Expired).ToList();
             if (!activeAssignments.Any())
             {
                 return false;
