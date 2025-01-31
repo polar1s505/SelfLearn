@@ -13,5 +13,13 @@
         {
             Assignments.Add(assignment);
         }
+
+        public void UpdateAssignmentsStatus()
+        {
+            foreach (var assignment in Assignments)
+            {
+                assignment.CheckExpiration();
+            }
+        }
     }
 }

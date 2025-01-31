@@ -1,15 +1,16 @@
-﻿using TaskManager.Models;
+﻿using TaskManager.Interfaces;
+using TaskManager.Models;
 using TaskManager.Utils;
 
 namespace TaskManager.Commands
 {
-    public class ModifyAssignmentCommand : CommandBase
+    public class ModifyAssignmentCommand : ICommand<bool>
     {
-        public override bool Execute(User user)
+        public bool Execute(User user)
         {
             UserInputReader reader = new UserInputReader();
 
-            var activeAssignments = user.Assignments.Where(a => a.Status == Enums.AssignmentStatus.Active).ToList();
+            var activeAssignments = user.Assignments.Where(a => a.Status == Enums.AssignmentStatus.Active || a.Status == Enums.AssignmentStatus.Expired).ToList();
             if (!activeAssignments.Any())
             {
                 return false;

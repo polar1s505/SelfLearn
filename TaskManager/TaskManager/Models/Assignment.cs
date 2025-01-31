@@ -23,5 +23,19 @@ namespace TaskManager.Models
             LastUpdatedAt = lastUpdatedAt;
             DueDate = dueDate;
         }
+
+        public void CheckExpiration()
+        {
+            if (Status == AssignmentStatus.Active && DueDate < DateTime.UtcNow)
+            {
+                Status = AssignmentStatus.Expired;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Title: {Title}\nDescription: {Description}\nCreated: {CreatedAt:HH:mm, dd/MM/yyyy}\n" +
+                $"Last Updated: {LastUpdatedAt:HH:mm, dd/MM/yyyy}\nDeadline: {DueDate:HH:mm, dd/MM/yyyy}\nStatus: {Status}\n";
+        }
     }
 }

@@ -4,5 +4,6 @@
     {
         Active = 1,
         Completed,
+        Expired
     }
 }
