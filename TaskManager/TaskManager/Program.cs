@@ -1,6 +1,4 @@
-﻿
-using TaskManager.Commands;
-using TaskManager.Interfaces;
+﻿using TaskManager.Interfaces;
 using TaskManager.Models;
 using TaskManager.Utils;
 
@@ -24,48 +22,26 @@ do
         menuSelection = userInput.ToLower().Trim();
     }
 
+
     DisplayCommandInfo display = new DisplayCommandInfo();
+
     switch (menuSelection)
     {
         case "1":
-            ICommand<bool> addAssignmentCommand = new AddAssignmentCommand();
-            display.ShowAddAssignmentResult(addAssignmentCommand.Execute(user));
-            break;
         case "2":
-            ICommand<bool> modifyAssignmentCommand = new ModifyAssignmentCommand();
-            display.ShowModifyAssignmentResult(modifyAssignmentCommand.Execute(user));
-            break;
         case "3":
-            ICommand<bool> closeAssignmentCommand = new CloseAssignmentCommand();
-            display.ShowCloseAssignmentResult(closeAssignmentCommand.Execute(user));
-            break;
         case "4":
-            ICommand<bool> deleteAssignmentCommand = new DeleteAssignmentCommand();
-            display.ShowDeleteAssignmentResult(deleteAssignmentCommand.Execute(user));
+            ICommand<bool>? commandBool = CommandFactory.GetCommand<bool>(menuSelection);
+            display.ShowAssignmentResult(commandBool!.Execute(user));
             break;
         case "5":
-            ICommand<List<Assignment>> showAllAssignments = new ShowAllAssignmentsCommand();
-            display.ShowAssignments(showAllAssignments.Execute(user));
-            break;
         case "6":
-            ICommand<List<Assignment>> showAssignmentsInRange = new ShowAssignmentsByPeriodCommand();
-            display.ShowAssignments(showAssignmentsInRange.Execute(user));
-            break;
         case "7":
-            ICommand<List<Assignment>> showActiveAssignments = new ShowActiveAssignmentsCommand();
-            display.ShowAssignments(showActiveAssignments.Execute(user));
-            break;
         case "8":
-            ICommand<List<Assignment>> showExpiredAssignments = new ShowExpiredAssignmentsCommand();
-            display.ShowAssignments(showExpiredAssignments.Execute(user));
-            break;
         case "9":
-            ICommand<List<Assignment>> showCompletedAssignments = new ShowCompletedAssignmentsCommand();
-            display.ShowAssignments(showCompletedAssignments.Execute(user));
-            break;
         case "10":
-            ICommand<List<Assignment>> showAssignmentsByDueDate = new ShowAssignmentsByDueDate();
-            display.ShowAssignments(showAssignmentsByDueDate.Execute(user));
+            ICommand<List<Assignment>>? commandList = CommandFactory.GetCommand<List<Assignment>>(menuSelection);
+            display.ShowAssignments(commandList!.Execute(user));
             break;
         default:
             break;

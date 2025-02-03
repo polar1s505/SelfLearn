@@ -29,6 +29,7 @@ namespace TaskManager.Models
             if (Status == AssignmentStatus.Active && DueDate < DateTime.UtcNow)
             {
                 Status = AssignmentStatus.Expired;
+                LastUpdatedAt = DateTime.UtcNow;
             }
         }
 
