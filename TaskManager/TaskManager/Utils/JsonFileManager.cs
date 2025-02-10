@@ -5,7 +5,7 @@ namespace TaskManager.Utils
 {
     public class JsonFileManager
     {
-        public static void WriteToJson(User user, string filePath)
+        public static async Task WriteToJsonAsync(User user, string filePath)
         {
             var options = new JsonSerializerOptions
             {
@@ -14,10 +14,10 @@ namespace TaskManager.Utils
             };
 
             string json = JsonSerializer.Serialize(user.Assignments, options);
-            File.WriteAllText(filePath, json);
+            await File.WriteAllTextAsync(filePath, json);
         }
 
-        public static List<Assignment> ReadFromJson(string filePath)
+        public static async Task<List<Assignment>> ReadFromJsonAsync(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -29,7 +29,7 @@ namespace TaskManager.Utils
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
 
-            string jsonDb = File.ReadAllText(filePath);
+            string jsonDb = await File.ReadAllTextAsync(filePath);
 
             return JsonSerializer.Deserialize<List<Assignment>>(jsonDb, options) ?? new List<Assignment>();
         }
