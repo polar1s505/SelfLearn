@@ -7,7 +7,7 @@ const string FILEPATH = "db.json";
 string? userInput;
 string menuSelection = "";
 
-List<Assignment> assignments = JsonFileManager.ReadFromJson(FILEPATH);
+List<Assignment> assignments = await JsonFileManager.ReadFromJsonAsync(FILEPATH);
 User user = new User(assignments);
 
 do
@@ -49,7 +49,7 @@ do
 
 } while (menuSelection != "exit");
 
-JsonFileManager.WriteToJson(user, FILEPATH);
+await JsonFileManager.WriteToJsonAsync(user, FILEPATH);
 
 void DisplayMainMenu()
 {
