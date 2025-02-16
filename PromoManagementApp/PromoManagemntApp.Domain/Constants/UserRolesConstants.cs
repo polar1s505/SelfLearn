@@ -8,6 +8,8 @@
 
         public const string FinanceSpecialist = nameof(FinanceSpecialist);
 
+        public const string Unverified = nameof(Unverified);
+
         public static readonly string[] AllowedRoles = { Admin, Manager, FinanceSpecialist };
     }
 }
