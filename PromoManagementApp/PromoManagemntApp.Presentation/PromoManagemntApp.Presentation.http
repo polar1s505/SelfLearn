@@ -1,6 +1,0 @@
-@PromoManagemntApp.Presentation_HostAddress = http://localhost:5095
-
-GET {{PromoManagemntApp.Presentation_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
