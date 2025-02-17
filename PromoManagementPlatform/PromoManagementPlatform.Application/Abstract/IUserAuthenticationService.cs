@@ -7,6 +7,6 @@ namespace PromoManagementPlatform.Application.Abstract
     public interface IUserAuthenticationService
     {
         Task<IdentityResult> RegisterAsync(RegisterUserDTO registerUserDTO);
-        Task<IdentityResult> LoginAsync(LoginUserDTO loginUserDTO);
+        Task<LoginResponseDTO> LoginAsync(LoginUserDTO loginUserDTO);
     }
 }

@@ -6,7 +6,7 @@ namespace PromoManagementPlatform.Application.DTOs.Register
     {
         public RegisterUserDTOValidator()
         {
-            RuleFor(x => x.Name)
+            RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("Name is required")
                 .Matches("^[a-zA-Z]+$").WithMessage("Name must contain only letters")
                 .MaximumLength(50);
