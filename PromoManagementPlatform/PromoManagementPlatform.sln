@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromoManagementPlatform.Infrastructure", "PromoManagementPlatform.Infrastructure\PromoManagementPlatform.Infrastructure.csproj", "{0C1A0BA1-30CB-43DE-B945-26C2D3979209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromoManagementPlatform.API", "PromoManagementPlatform.API\PromoManagementPlatform.API.csproj", "{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{0C1A0BA1-30CB-43DE-B945-26C2D3979209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C1A0BA1-30CB-43DE-B945-26C2D3979209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C1A0BA1-30CB-43DE-B945-26C2D3979209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{80B4B0B0-88A4-4226-AA24-E5C443302DA8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FD1DD356-4641-4FC3-85FE-943CDE2A07D1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0C1A0BA1-30CB-43DE-B945-26C2D3979209} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{123F61E7-06F4-44A5-87DD-2DDBEECD5A6B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {935C9295-9466-4382-9924-96B5CB2199D8}
