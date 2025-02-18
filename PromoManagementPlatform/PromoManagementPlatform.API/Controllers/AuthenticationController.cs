@@ -6,7 +6,6 @@ using PromoManagementPlatform.Application.DTOs.Register;
 namespace PromoManagementPlatform.API.Controllers
 {
     [Route("api/auth")]
-    [ApiController]
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserAuthenticationService _userAuthenticationService;

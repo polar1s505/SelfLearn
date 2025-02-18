@@ -1,11 +1,12 @@
 using FluentValidation.AspNetCore;
 using PromoManagementPlatform.Infrastructure;
 using PromoManagementPlatform.Application;
+using PromoManagementPlatform.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => { options.Filters.Add<ValidationFilter>(); });
 
 builder.Services.AddFluentValidationAutoValidation();
 
