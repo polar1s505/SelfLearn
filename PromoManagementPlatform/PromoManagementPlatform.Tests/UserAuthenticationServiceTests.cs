@@ -110,7 +110,7 @@ namespace PromoManagementPlatform.Tests
 
             _mapperMock.Setup(x => x.Map<ApplicationUser>(registerUserDTO)).Returns(user);
             _userManagerMock.Setup(x => x.CreateAsync(user, registerUserDTO.Password)).ReturnsAsync(identityResult);
-            _userManagerMock.Setup(x => x.AddToRoleAsync(user, UserRolesConstants.Unverified)).ReturnsAsync(IdentityResult.Success);
+            //_userManagerMock.Setup(x => x.AddToRoleAsync(user, UserRolesConstants.Unverified)).ReturnsAsync(IdentityResult.Success);
 
             // Act
             var result = await _userAuthenticationService.RegisterAsync(registerUserDTO);

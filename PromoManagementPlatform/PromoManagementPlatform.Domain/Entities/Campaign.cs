@@ -24,10 +24,10 @@ namespace PromoManagementPlatform.Domain.Entities
         public DateTime EndDate { get; set; }
 
         [Required]
-        public CampaignTypeEnum Type { get; set; }
+        public CampaignTypeEnum Type { get; set; } 
 
         [Required]
-        public CampaignStatusEnum Status { get; set; }
+        public CampaignStatusEnum Status { get; set; } = CampaignStatusEnum.PendingStart;
 
 
         public string UserId { get; set; }

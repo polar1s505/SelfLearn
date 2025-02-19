@@ -48,8 +48,6 @@ namespace PromoManagementPlatform.Application.Implementations
                 return IdentityResult.Failed(new IdentityError { Description = "Registration failed" });
             }
 
-            await _userManager.AddToRoleAsync(user, UserRolesConstants.Unverified);
-
             return result;
 
         }

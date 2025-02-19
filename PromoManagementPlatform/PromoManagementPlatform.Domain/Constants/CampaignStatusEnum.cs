@@ -3,6 +3,7 @@
     public enum CampaignStatusEnum
     {
         Active,
-        Ended
+        Ended,
+        PendingStart
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PromoManagementPlatform.Application.Abstract;
+using PromoManagementPlatform.Domain.Abstract;
 using PromoManagementPlatform.Domain.Entities;
 using PromoManagementPlatform.Infrastructure.Config;
 using PromoManagementPlatform.Infrastructure.Implementations;
@@ -46,13 +47,9 @@ namespace PromoManagementPlatform.Infrastructure
             });
 
 
-
-
-
-
-
             services.AddScoped<IUserManagerWrapper<ApplicationUser>, UserManagerWrapper<ApplicationUser>>();
             services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
+            services.AddScoped<ICampaignRepository, CampaignRepository>();
 
             return services;
         }
