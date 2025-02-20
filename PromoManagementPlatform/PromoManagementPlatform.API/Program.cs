@@ -3,9 +3,13 @@ using PromoManagementPlatform.Infrastructure;
 using PromoManagementPlatform.Application;
 using PromoManagementPlatform.API.Filters;
 using Microsoft.OpenApi.Models;
+using PromoManagementPlatform.Infrastructure.BackgroundJobs;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddBackgroundJobs(builder.Configuration);
 
 builder.Services.AddControllers(options => { options.Filters.Add<ValidationFilter>(); });
 
@@ -58,6 +62,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseHangfireDashboard("/hangfire");
 
 app.MapControllers();
 

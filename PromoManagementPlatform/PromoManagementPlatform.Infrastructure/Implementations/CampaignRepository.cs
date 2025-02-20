@@ -64,5 +64,8 @@ namespace PromoManagementPlatform.Infrastructure.Implementations
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Campaign>> GetCampaignsAsync()
+            => await _context.Campaigns.ToListAsync();
     }
 }

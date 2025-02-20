@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PromoManagementPlatform.Application.Abstract;
+using PromoManagementPlatform.Application.BackgroundServices;
 using PromoManagementPlatform.Domain.Abstract;
 using PromoManagementPlatform.Domain.Entities;
 using PromoManagementPlatform.Infrastructure.Config;
@@ -46,10 +48,17 @@ namespace PromoManagementPlatform.Infrastructure
                 };
             });
 
+            
+
 
             services.AddScoped<IUserManagerWrapper<ApplicationUser>, UserManagerWrapper<ApplicationUser>>();
             services.AddScoped<ITokenGeneratorService, TokenGeneratorService>();
             services.AddScoped<ICampaignRepository, CampaignRepository>();
+            services.AddScoped<UpdateCampaignStatusService>();
+
+            RecurringJob.AddOrUpdate("status-check-update", () =>
+                services.BuildServiceProvider().GetRequiredService<UpdateCampaignStatusService>().UpdateCampaignStatusAsync(),
+                Cron.Minutely());
 
             return services;
         }
