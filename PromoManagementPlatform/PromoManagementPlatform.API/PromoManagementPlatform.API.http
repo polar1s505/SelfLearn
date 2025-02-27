@@ -1,0 +1,6 @@
+@PromoManagementPlatform.API_HostAddress = http://localhost:5212
+
+GET {{PromoManagementPlatform.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
