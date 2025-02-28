@@ -2,10 +2,11 @@
 using backend.Application.Mappers;
 using backend.Application.Abstract;
 using backend.Application.DTOs.Stock;
+using backend.Application.Queries.Stock;
 
 namespace backend.API.Controllers
 {
-    [Route("api/stocks")]
+    [Route("api/stock")]
     [ApiController]
     public class StockController : ControllerBase
     {
@@ -17,9 +18,9 @@ namespace backend.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] StockQuery query)
         {
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(query);
 
             var response = stocks.Select(s => s.ToStockDTO()).ToList();
 
