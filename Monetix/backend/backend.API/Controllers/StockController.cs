@@ -39,7 +39,7 @@ namespace backend.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockDTO updateDTO)
         {
-            var stockModel = updateDTO.ToStockFromCreateCommand();
+            var stockModel = updateDTO.ToStockFromCreateDTO();
 
             await _stockRepo.CreateAsync(stockModel);
 
@@ -47,7 +47,7 @@ namespace backend.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, UdpateStockRequestDTO udpateDTO)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UdpateStockRequestDTO udpateDTO)
         {
             var stockModel = await _stockRepo.UpdateAsync(id, udpateDTO);
 

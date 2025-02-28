@@ -15,6 +15,7 @@ namespace backend.Infrastructure
                 options.UseNpgsql(configuration.GetConnectionString("Monetix")));
 
             services.AddScoped<IStockRepo, StockRepo>();
+            services.AddScoped<ICommentRepo, CommentRepo>();
 
             return services;
         }

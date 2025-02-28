@@ -1,4 +1,6 @@
-﻿namespace backend.Application.DTOs.Stock
+﻿using backend.Application.DTOs.Comment;
+
+namespace backend.Application.DTOs.Stock
 {
     public record StockDTO(
         Guid Id,
@@ -7,5 +9,6 @@
         decimal Purchase,
         decimal LastDiv,
         string Industry,
-        long MarketCap);
+        long MarketCap,
+        List<CommentDTO> Comments);
 }

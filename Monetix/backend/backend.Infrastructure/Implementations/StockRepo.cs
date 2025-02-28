@@ -40,7 +40,7 @@ namespace backend.Infrastructure.Implementations
 
         public async Task<List<Stock>> GetAllAsync()
         {
-            return await _appDbContext.Stocks.ToListAsync();
+            return await _appDbContext.Stocks.Include(c => c.Comments).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(Guid id)
@@ -50,7 +50,7 @@ namespace backend.Infrastructure.Implementations
 
         public async Task<Stock?> UpdateAsync(Guid id, UdpateStockRequestDTO updateDTO)
         {
-            var stockModel = await _appDbContext.Stocks.FirstOrDefaultAsync(s => s.Id == id);
+            var stockModel = await _appDbContext.Stocks.Include(c => c.Comments).FirstOrDefaultAsync(s => s.Id == id);
 
             if(stockModel == null)
             {
@@ -67,6 +67,11 @@ namespace backend.Infrastructure.Implementations
             await _appDbContext.SaveChangesAsync();
 
             return stockModel;
+        }
+
+        public async Task<bool> IsExists(Guid id)
+        {
+            return await _appDbContext.Stocks.AnyAsync(s => s.Id == id);
         }
     }
 }

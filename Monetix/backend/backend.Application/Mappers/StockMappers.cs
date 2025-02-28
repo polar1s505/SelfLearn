@@ -15,11 +15,12 @@ namespace backend.Application.Mappers
                 Purchase: stockModel.Purchase,
                 LastDiv: stockModel.LastDiv,
                 Industry: stockModel.Industry,
-                MarketCap: stockModel.MarketCap
+                MarketCap: stockModel.MarketCap,
+                Comments: stockModel.Comments.Select(c => c.ToCommentDTO()).ToList()
             );
         }
 
-        public static Stock ToStockFromCreateCommand(this CreateStockDTO requestDTO)
+        public static Stock ToStockFromCreateDTO(this CreateStockDTO requestDTO)
         {
             return new Stock
             {

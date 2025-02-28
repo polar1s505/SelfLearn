@@ -10,5 +10,6 @@ namespace backend.Application.Abstract
         Task<Stock> CreateAsync(Stock stockModel);
         Task<Stock?> UpdateAsync(Guid id, UdpateStockRequestDTO updateDTO);
         Task<Stock?> DeleteAsync(Guid id);
+        Task<bool> IsExists(Guid id);
     }
 }
