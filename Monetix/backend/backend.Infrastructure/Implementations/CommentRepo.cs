@@ -1,5 +1,6 @@
 ﻿using backend.Application.Abstract;
 using backend.Application.DTOs.Comment;
+using backend.Application.Queries.Comment;
 using backend.Domain.Models;
 using backend.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -15,14 +16,27 @@ namespace backend.Infrastructure.Implementations
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQuery query)
         {
-            return await _appDbContext.Comments.ToListAsync();
+            var comments = _appDbContext.Comments.Include(u => u.ApplicationUser)
+                .AsNoTracking().AsQueryable();
+                
+            if(!string.IsNullOrWhiteSpace(query.Symbol))
+            {
+                comments = comments.Where(s => s.Stock.Symbol.ToLower() == query.Symbol.ToLower());
+            }
+
+            if(query.IsDescending)
+            {
+                comments = comments.OrderByDescending(c => c.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(Guid id)
         {
-            return await _appDbContext.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            return await _appDbContext.Comments.Include(u => u.ApplicationUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
 

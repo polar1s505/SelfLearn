@@ -1,6 +1,7 @@
 ﻿using backend.Application.Abstract;
 using backend.Domain.Models;
 using backend.Infrastructure.Extenstions;
+using backend.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,15 @@ namespace backend.API.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStockRepo _stockRepo;
         private readonly IPortfolioRepo _portfolioRepo;
+        private readonly IFMPService _fmpService;
 
-        public PortfolioController(UserManager<ApplicationUser> userManager, IStockRepo stockRepo, IPortfolioRepo portfolioRepo)
+        public PortfolioController(UserManager<ApplicationUser> userManager, IStockRepo stockRepo, 
+            IPortfolioRepo portfolioRepo, IFMPService fmpService)
         {
             _userManager = userManager;
             _stockRepo = stockRepo;
             _portfolioRepo = portfolioRepo;
+            _fmpService = fmpService;
         }
 
         [HttpGet]
@@ -40,6 +44,17 @@ namespace backend.API.Controllers
             var username = User.GetUsername();
             var user = await _userManager.FindByNameAsync(username);
             var stock = await _stockRepo.GetBySymbolAsync(symbol.ToUpper());
+
+            if (stock == null)
+            {
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                if (stock == null)
+                {
+                    return BadRequest("Stock does not exist");
+                }
+
+                await _stockRepo.CreateAsync(stock);
+            }
 
             if (stock == null) return BadRequest("Stock not found");
 

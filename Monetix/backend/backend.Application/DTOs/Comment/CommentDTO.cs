@@ -5,5 +5,6 @@
     string Title,
     string Content,
     DateTime CreatedOn,
+    string CreatedBy,
     Guid? StockID);
 }

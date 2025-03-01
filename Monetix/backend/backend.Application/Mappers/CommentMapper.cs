@@ -13,6 +13,7 @@ namespace backend.Application.Mappers
                     Title: commentModel.Title,
                     Content: commentModel.Content,
                     CreatedOn: commentModel.CreatedOn,
+                    CreatedBy: commentModel.ApplicationUser.UserName,
                     StockID: commentModel.StockID
                 );
         }

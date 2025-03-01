@@ -58,6 +58,8 @@ namespace backend.Infrastructure
             services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPortfolioRepo, PortfolioRepo>();
+            services.AddScoped<IFMPService, FMPService>();
+            services.AddHttpClient<IFMPService, FMPService>();
 
             return services;
         }

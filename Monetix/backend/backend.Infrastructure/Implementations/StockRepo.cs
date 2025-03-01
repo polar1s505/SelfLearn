@@ -41,7 +41,7 @@ namespace backend.Infrastructure.Implementations
 
         public async Task<List<Stock>> GetAllAsync(StockQuery query)
         {
-            var stocks = _appDbContext.Stocks.Include(c => c.Comments).AsNoTracking().AsQueryable();
+            var stocks = _appDbContext.Stocks.Include(c => c.Comments).ThenInclude(u => u.ApplicationUser).AsNoTracking().AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(query.Symbol))
             {
@@ -99,7 +99,7 @@ namespace backend.Infrastructure.Implementations
 
         public async Task<Stock?> GetBySymbolAsync(string symbol)
         {
-            return await _appDbContext.Stocks.FirstOrDefaultAsync(s => s.Symbol == symbol);
+            return await _appDbContext.Stocks.FirstOrDefaultAsync(s => s.Symbol.ToLower() == symbol.ToLower());
         }
     }
 }

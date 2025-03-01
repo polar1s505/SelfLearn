@@ -3,6 +3,7 @@ using backend.Application.Mappers;
 using backend.Application.Abstract;
 using backend.Application.DTOs.Stock;
 using backend.Application.Queries.Stock;
+using System.Collections.Generic;
 
 namespace backend.API.Controllers
 {

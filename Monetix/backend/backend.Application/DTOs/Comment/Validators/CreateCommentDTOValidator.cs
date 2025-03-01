@@ -11,8 +11,8 @@ namespace backend.Application.DTOs.Comment.Validators
                 .MaximumLength(280).WithMessage("Title cannot be over 280 characters");
 
             RuleFor(c => c.Content)
-                .MinimumLength(5).WithMessage("Title must be 5 characters")
-                .MaximumLength(280).WithMessage("Title cannot be over 280 characters");
+                .MinimumLength(5).WithMessage("Content must be 5 characters")
+                .MaximumLength(280).WithMessage("Content cannot be over 280 characters");
         }
     }
 }
