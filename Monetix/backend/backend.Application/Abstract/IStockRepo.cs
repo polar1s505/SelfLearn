@@ -8,6 +8,7 @@ namespace backend.Application.Abstract
     {
         Task<List<Stock>> GetAllAsync(StockQuery query);
         Task<Stock?> GetByIdAsync(Guid id);
+        Task<Stock?> GetBySymbolAsync(string symbol);
         Task<Stock> CreateAsync(Stock stockModel);
         Task<Stock?> UpdateAsync(Guid id, UdpateStockRequestDTO updateDTO);
         Task<Stock?> DeleteAsync(Guid id);

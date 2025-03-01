@@ -12,8 +12,8 @@ using backend.Infrastructure.Persistence;
 namespace backend.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250228170049_AddIdentityUser")]
-    partial class AddIdentityUser
+    [Migration("20250301132240_CommentOneToOne")]
+    partial class CommentOneToOne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,9 @@ namespace backend.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
@@ -243,9 +246,26 @@ namespace backend.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("StockID");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("backend.Domain.Models.Portfolio", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("StockId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ApplicationUserId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("backend.Domain.Models.Stock", b =>
@@ -333,16 +353,48 @@ namespace backend.Infrastructure.Migrations
 
             modelBuilder.Entity("backend.Domain.Models.Comment", b =>
                 {
+                    b.HasOne("backend.Domain.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("backend.Domain.Models.Stock", "Stock")
                         .WithMany("Comments")
                         .HasForeignKey("StockID");
 
+                    b.Navigation("ApplicationUser");
+
                     b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("backend.Domain.Models.Portfolio", b =>
+                {
+                    b.HasOne("backend.Domain.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Domain.Models.Stock", "Stock")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("backend.Domain.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Portfolios");
                 });
 
             modelBuilder.Entity("backend.Domain.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Portfolios");
                 });
 #pragma warning restore 612, 618
         }

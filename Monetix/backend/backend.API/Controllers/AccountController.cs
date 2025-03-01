@@ -1,4 +1,5 @@
 ﻿using backend.Application.Abstract;
+using backend.Application.DTOs.Login;
 using backend.Application.DTOs.Register;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +23,23 @@ namespace backend.API.Controllers
 
             if(!result.Succeeded)
             {
-                return StatusCode(500, result.Errors.ToString());
+                return StatusCode(500, result.Errors);
             }
 
             return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
+        {
+            var result = await _userAuthenticationService.LoginAsync(loginDTO);
+
+            if(!result.Success)
+            {
+                return Unauthorized(result.ErrorMessage);
+            }
+
+            return Ok(result.Token);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using backend.Application.Abstract;
 using backend.Domain.Models;
+using backend.Infrastructure.Configs;
 using backend.Infrastructure.Implementations;
 using backend.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,6 +30,8 @@ namespace backend.Infrastructure
             })
             .AddEntityFrameworkStores<AppDbContext>();
 
+            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -54,6 +57,7 @@ namespace backend.Infrastructure
             services.AddScoped<IStockRepo, StockRepo>();
             services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPortfolioRepo, PortfolioRepo>();
 
             return services;
         }

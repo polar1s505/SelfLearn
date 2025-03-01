@@ -96,5 +96,10 @@ namespace backend.Infrastructure.Implementations
         {
             return await _appDbContext.Stocks.AnyAsync(s => s.Id == id);
         }
+
+        public async Task<Stock?> GetBySymbolAsync(string symbol)
+        {
+            return await _appDbContext.Stocks.FirstOrDefaultAsync(s => s.Symbol == symbol);
+        }
     }
 }

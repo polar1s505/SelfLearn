@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Domain.Models
 {
+    [Table("Comments")]
     public class Comment
     {
         [Key]
@@ -14,5 +15,9 @@ namespace backend.Domain.Models
         [ForeignKey(nameof(StockID))]
         public Guid? StockID { get; set; }
         public Stock? Stock { get; set; }
+
+        [ForeignKey(nameof(ApplicationUserId))]
+        public string? ApplicationUserId { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

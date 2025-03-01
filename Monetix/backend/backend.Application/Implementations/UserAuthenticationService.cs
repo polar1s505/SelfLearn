@@ -23,14 +23,14 @@ namespace backend.Application.Implementations
 
         public async Task<LoginResult> LoginAsync(LoginDTO loginDTO)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDTO.Username.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDTO.Username);
 
             if(user == null)
             {
                 return new LoginResult
                 {
                     Success = false,
-                    ErrorMessage = "User not found"
+                    ErrorMessage = "Invalid user"
                 };
             }
 
@@ -74,18 +74,18 @@ namespace backend.Application.Implementations
                     }
                     else
                     {
-                        return IdentityResult.Failed(new IdentityError { Description = "Failed to add to role" });
+                        return IdentityResult.Failed(new IdentityError { Code = "500", Description = "Failed to add to role" }); 
                     }
                 }
                 else
                 {
-                    return IdentityResult.Failed(new IdentityError { Description = "Failed to create a new user" });
+                    return IdentityResult.Failed(new IdentityError { Code = "500", Description = "Failed to create a new user" });
                 }
             }
             catch (Exception e)
             {
 
-                return IdentityResult.Failed(new IdentityError { Description = "Unexpected error occured!"});
+                return IdentityResult.Failed(new IdentityError { Code = "500", Description = "Unexpected error occured!"});
             }
         }
 
