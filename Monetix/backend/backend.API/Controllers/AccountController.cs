@@ -34,12 +34,12 @@ namespace backend.API.Controllers
         {
             var result = await _userAuthenticationService.LoginAsync(loginDTO);
 
-            if(!result.Success)
+            if(result == null)
             {
-                return Unauthorized(result.ErrorMessage);
+                return Unauthorized();
             }
 
-            return Ok(result.Token);
+            return Ok(result);
         }
     }
 }

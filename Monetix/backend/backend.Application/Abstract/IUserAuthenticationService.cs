@@ -6,7 +6,7 @@ namespace backend.Application.Abstract
 {
     public interface IUserAuthenticationService
     {
-        Task<LoginResult> LoginAsync(LoginDTO loginDTO);
+        Task<LoginResult?> LoginAsync(LoginDTO loginDTO);
         Task<IdentityResult> RegisterAsync(RegisterDTO registerDTO);
     }
 }

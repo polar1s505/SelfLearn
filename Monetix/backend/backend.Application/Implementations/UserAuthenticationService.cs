@@ -21,33 +21,26 @@ namespace backend.Application.Implementations
             _tokenService = tokenService;
         }
 
-        public async Task<LoginResult> LoginAsync(LoginDTO loginDTO)
+        public async Task<LoginResult?> LoginAsync(LoginDTO loginDTO)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDTO.Username);
 
             if(user == null)
             {
-                return new LoginResult
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid user"
-                };
+                return null;
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
 
             if(!result.Succeeded)
             {
-                return new LoginResult
-                {
-                    Success = false,
-                    ErrorMessage = "Username not found and/or password incorrect"
-                };
+                return null;
             }
 
             return new LoginResult
             {
-                Success = true,
+                UserName = user.UserName,
+                Email = user.Email,
                 Token = _tokenService.GenerateToken(user)
             };
         }
