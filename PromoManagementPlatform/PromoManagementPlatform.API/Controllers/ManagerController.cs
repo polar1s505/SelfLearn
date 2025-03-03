@@ -19,7 +19,7 @@ namespace PromoManagementPlatform.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost("create-campaign")]
+        [HttpPost("campaign")]
         public async Task<IActionResult> CreateCampaignAsync([FromBody] CreateCampaignCommand createCampaignCommand)
         {
             var result = await _mediator.Send(createCampaignCommand);
@@ -30,26 +30,30 @@ namespace PromoManagementPlatform.API.Controllers
             return Ok();
         }
 
-        [HttpPatch("start-campaign")]
-        public async Task<IActionResult> StartCampaignAsync([FromBody] StartCampaignCommand startCampaignCommand)
+        [HttpPatch("campaign/status")]
+        public async Task<IActionResult> UpdateCampaignStatusAsync([FromQuery] Guid id, [FromQuery] CampaignStatusEnum status)
         {
-            var result = await _mediator.Send(startCampaignCommand);
-            if (!result.IsSuccess)
+            if(status.Equals(CampaignStatusEnum.Active))
             {
-                return BadRequest(result.Error);
+                var result = await _mediator.Send(new StartCampaignCommand(CampaignId: id));
+                if (!result.IsSuccess)
+                {
+                    return BadRequest(result.Error);
+                }
+                return Ok();
             }
-            return Ok();
-        }
 
-        [HttpPatch("end-campaign")]
-        public async Task<IActionResult> EndCampaignAsync([FromBody] EndCampaignCommand endCampaignCommand)
-        {
-            var result = await _mediator.Send(endCampaignCommand);
-            if (!result.IsSuccess)
+            if (status.Equals(CampaignStatusEnum.Ended))
             {
-                return BadRequest(result.Error);
+                var result = await _mediator.Send(new EndCampaignCommand(CampaignId: id));
+                if (!result.IsSuccess)
+                {
+                    return BadRequest(result.Error);
+                }
+                return Ok();
             }
-            return Ok();
+
+            return BadRequest("Invalid status");
         }
 
         [HttpGet("campaigns/{managerId}")]

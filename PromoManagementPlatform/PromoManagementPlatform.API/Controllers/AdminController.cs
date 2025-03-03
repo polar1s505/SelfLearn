@@ -18,7 +18,7 @@ namespace PromoManagementPlatform.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPatch("add-user-role")]
+        [HttpPatch("user/role")]
         public async Task<IActionResult> AddUserRoleAsync([FromBody] AddRoleCommand addRoleCommand)
         {
             var result = await _mediator.Send(addRoleCommand);
